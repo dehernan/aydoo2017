@@ -187,10 +187,12 @@ public class PresidentialPrimaryElection {
         while(iterator.hasNext()){
 
             Candidate actualCandidate = iterator.next();
-            if(this.votesByCandidate(actualCandidate)>winnerVotes){
+            int actualCandidateVotes = this.votesByCandidate(actualCandidate);
+
+            if(actualCandidateVotes>winnerVotes){
 
                 winnerCandidate = actualCandidate.getName();
-                winnerVotes = this.votesByCandidate(actualCandidate);
+                winnerVotes = actualCandidateVotes;
 
 
             }
@@ -212,10 +214,12 @@ public class PresidentialPrimaryElection {
         while(iterator.hasNext()){
 
             Candidate actualCandidate = iterator.next();
-            if(this.votesByCandidateAndProvince(province, actualCandidate)>winnerVotes){
+            int actualCandidateVotes = this.votesByCandidateAndProvince(province, actualCandidate);
+
+            if(actualCandidateVotes>winnerVotes){
 
                 winnerCandidate = actualCandidate.getName();
-                winnerVotes = this.votesByCandidateAndProvince(province, actualCandidate);
+                winnerVotes = actualCandidateVotes;
 
             }
 
@@ -235,10 +239,12 @@ public class PresidentialPrimaryElection {
         while(iterator.hasNext()){
 
             Candidate actualCandidate = iterator.next();
-            if(this.votesByParty(actualCandidate.getParty()) > winnerVotes){
+            int actualPartyVotes = this.votesByParty(actualCandidate.getParty());
+
+            if(actualPartyVotes > winnerVotes){
 
                 winnerParty = actualCandidate.getParty().getName();
-                winnerVotes = this.votesByParty(actualCandidate.getParty());
+                winnerVotes = actualPartyVotes;
 
             }
 
@@ -257,10 +263,11 @@ public class PresidentialPrimaryElection {
 
         while(iterator.hasNext()){
             Candidate actualCandidate = iterator.next();
+            int actualPartyVotes = this.votesByPartyAndProvince(province, actualCandidate.getParty());
 
-            if(this.votesByPartyAndProvince(province, actualCandidate.getParty())> winnerVotes){
+            if(actualPartyVotes> winnerVotes){
 
-                winnerVotes = this.votesByPartyAndProvince(province, actualCandidate.getParty());
+                winnerVotes = actualPartyVotes;
                 winnerParty = actualCandidate.getParty().getName();
 
             }
