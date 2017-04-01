@@ -21,3 +21,8 @@ ejercicio_votacion/target
 *.rar
 *.tar
 *.zip
+
+# IDE Files #
+#############
+.idea/
+*.iml
