@@ -5,10 +5,10 @@ import java.util.List;
 
 public class PrimeNumberCalculator{
 
-    public static List<Integer> factors = new ArrayList<Integer>();
+    public List<Integer> factors = new ArrayList<Integer>();
     public static String output = "";
 
-    public static final void main(String arg[]){
+    public final void main(String arg[]){
         int number = Integer.parseInt(arg[0]);
         String format = "";
 
@@ -25,7 +25,7 @@ public class PrimeNumberCalculator{
 
     }
 
-    public static void calculateFactors(int number){
+    public void calculateFactors(int number){
 
         if(number == 1){
 
@@ -46,7 +46,7 @@ public class PrimeNumberCalculator{
 
     }
 
-    public static void formatOutput(String format){
+    public void formatOutput(String format){
 
         switch(format){
 
