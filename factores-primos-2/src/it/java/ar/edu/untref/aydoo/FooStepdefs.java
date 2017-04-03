@@ -1,6 +1,5 @@
 package ar.edu.untref.aydoo;
 
-import ar.edu.untref.aydoo.Foo;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

@@ -86,7 +86,7 @@
                   <archive>
                     <manifest>
                       <addClasspath>true</addClasspath>
-                      <mainClass>ar.edu.untref.aydoo.Program</mainClass>
+                      <mainClass>ar.edu.untref.aydoo.PrimeNumberCalculator</mainClass>
                     </manifest>
                   </archive>
                 </configuration>
