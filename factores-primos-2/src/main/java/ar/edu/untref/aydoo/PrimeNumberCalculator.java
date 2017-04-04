@@ -12,8 +12,8 @@ public class PrimeNumberCalculator{
     public final void main(String arg[]){
         int number = Integer.parseInt(arg[0]);
 
-        for(String i: arg){
-            i.toLowerCase();
+        for(int i = 0; i < arg.length; i++){
+            arg[i]=arg[i].toLowerCase();
         }
 
         output ="Factores primos "+number+": ";
@@ -31,7 +31,16 @@ public class PrimeNumberCalculator{
 
             if (i.startsWith("--format=")) {
 
-                this.format=(i.substring(9, i.length()));
+                String analizedFormat = i.substring(9, i.length());
+                System.out.println(analizedFormat);
+                int analizedPosition = 0;
+                while(analizedPosition < (i.length()-9) && analizedFormat.charAt(analizedPosition)!= ' '){
+
+                    analizedPosition++;
+
+                }
+
+                this.format = analizedFormat.substring(0, analizedPosition);
 
             } else {
 
@@ -67,6 +76,7 @@ public class PrimeNumberCalculator{
 
         switch(format){
 
+            case "":
             case "pretty":
                 for(int i = 0; i < factors.size(); i++){
 

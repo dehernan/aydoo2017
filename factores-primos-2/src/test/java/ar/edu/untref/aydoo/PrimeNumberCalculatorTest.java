@@ -33,7 +33,7 @@ public class PrimeNumberCalculatorTest{
 
         String[] args = new String[2];
         args[0] = "360";
-        args[1] = "--format=quiet";
+        args[1] = "--format=quIet";
 
         calculator.main(args);
 
@@ -76,6 +76,18 @@ public class PrimeNumberCalculatorTest{
         calculator.main(args);
 
         Assert.assertEquals("Factores primos 360: 2 2 2 3 3 5 ", calculator.output);
+    }
+
+    @Test
+    public void number360WithQuietFormatAndSpacesAtFinalTest() {
+
+        String[] args = new String[2];
+        args[0] = "360";
+        args[1] = "--format=quiet    ";
+
+        calculator.main(args);
+
+        Assert.assertEquals("Factores primos 360: \n5\n3\n3\n2\n2\n2\n", calculator.output);
     }
 
 }
