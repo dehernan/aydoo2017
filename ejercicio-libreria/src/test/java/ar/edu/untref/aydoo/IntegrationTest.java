@@ -9,8 +9,7 @@ import static ar.edu.untref.aydoo.Month.JANUARY;
 import static ar.edu.untref.aydoo.Periodicity.BIWEEKLY;
 import static ar.edu.untref.aydoo.Periodicity.DAILY;
 import static ar.edu.untref.aydoo.Periodicity.WEEKLY;
-import static ar.edu.untref.aydoo.SubscriptionType.ANUAL;
-import static ar.edu.untref.aydoo.SubscriptionType.MONTHLY;
+
 
 public class IntegrationTest{
 

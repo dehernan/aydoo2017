@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static ar.edu.untref.aydoo.SubscriptionType.ANUAL;
-import static ar.edu.untref.aydoo.SubscriptionType.MONTHLY;
-
 /**
  * Created by hernan on 04/04/17.
  */
@@ -59,7 +56,7 @@ public class Customer{
 
             Subscription actualSubscription = iterator.next();
 
-            if(actualSubscription.getSubscriptionType()==MONTHLY){
+            if(actualSubscription instanceof MonthlySubscription){
 
                 subscriptionsOnTheMonth.add(actualSubscription);
 
@@ -79,7 +76,7 @@ public class Customer{
 
             Subscription actualSubscription = iterator.next();
 
-            if(actualSubscription.getSubscriptionType()==ANUAL){
+            if(actualSubscription instanceof AnualSubscription){
 
                 subscriptionsOnTheMonth.add(actualSubscription);
 
@@ -99,13 +96,13 @@ public class Customer{
 
     public void addMonthlySubscription(PeriodicItem item, Month month){
 
-        this.subscriptionsList.add(new Subscription(item, MONTHLY, month));
+        this.subscriptionsList.add(new MonthlySubscription(item, month));
 
     }
 
     public void addAnualSubscription(PeriodicItem item){
 
-        this.subscriptionsList.add(new Subscription(item, ANUAL));
+        this.subscriptionsList.add(new AnualSubscription(item));
 
     }
 
