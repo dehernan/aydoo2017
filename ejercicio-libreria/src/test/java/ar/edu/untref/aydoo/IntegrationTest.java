@@ -133,7 +133,7 @@ public class IntegrationTest{
     }
 
     @Test
-    public void shouldCalculateAmountOfAMonthlyAndAnAnualSubscription2(){
+    public void shouldCalculateAmountOfAMagazineABookAndTwoPens(){
 
         Magazine barcelona = new Magazine("Barcelona", 20, BIWEEKLY);
         Magazine elgrafico = new Magazine("El Grafico", 30, Periodicity.MONTHLY);
@@ -148,6 +148,24 @@ public class IntegrationTest{
         juan.addPurchase(elgrafico, AUGUST);
 
         Assert.assertEquals(92.1, calculator.calculateAmountToBeCharged(AUGUST, juan), 0.0);
+
+    }
+
+    @Test
+    public void shouldCalculateAmountOfAnAnualSubscriptionAndANewspaper(){
+
+        Magazine barcelona = new Magazine("Barcelona", 20, BIWEEKLY);
+        Magazine elgrafico = new Magazine("El Grafico", 30, Periodicity.MONTHLY);
+        Book elhobbit = new Book("El Hobbit", 50);
+        BookstoreItem lapicera = new BookstoreItem("Lapicera", 5);
+        Newspaper pagina12 = new Newspaper("Pagina 12", 12, DAILY);
+        Newspaper clarin = new Newspaper("Clarin", 13, DAILY);
+        Customer maria = new Customer("Maria", "Remedios de Escalada 1234", "San Martin");
+
+        maria.addAnualSubscription(barcelona);
+        maria.addPurchase(pagina12, JANUARY);
+
+        Assert.assertEquals(44, calculator.calculateAmountToBeCharged(JANUARY, maria), 0.0);
 
     }
 
