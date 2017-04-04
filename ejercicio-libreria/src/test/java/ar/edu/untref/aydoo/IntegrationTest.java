@@ -60,6 +60,28 @@ public class IntegrationTest{
         Assert.assertEquals(93.5, calculator.calculateAmountToBeCharged(ENERO, horacio),0.0);
     }
 
+    @Test
+    public void shouldCalculateAmountOfOneBookstoreItem(){
+
+        BookstoreItem bookstoreItem = new BookstoreItem("Lapicera", 5.0);
+        Customer horacio = new Customer("Horacio", "Remedios de Escalada 1234", "San Martin");
+        Purchase horacioFirstPurchase = new Purchase(horacio, bookstoreItem, ENERO);
+        Assert.assertEquals(6.05, calculator.calculateAmountToBeCharged(ENERO, horacio), 0.0);
+
+    }
+
+    @Test
+    public void shouldCalculateAmountOfTwoBookstoreItem(){
+
+        BookstoreItem firstBookstoreItem = new BookstoreItem("Lapicera", 5.0);
+        BookstoreItem secondBookstoreItem = new BookstoreItem("Cuaderno", 8.0);
+        Customer horacio = new Customer("Horacio", "Remedios de Escalada 1234", "San Martin");
+        Purchase horacioFirstPurchase = new Purchase(horacio, firstBookstoreItem, ENERO);
+        Purchase horacioSecondPurchase = new Purchase(horacio, secondBookstoreItem, ENERO);
+        Assert.assertEquals(15.73, calculator.calculateAmountToBeCharged(ENERO, horacio), 0.0);
+
+    }
+
 
 
 }

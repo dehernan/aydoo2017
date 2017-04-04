@@ -30,4 +30,8 @@ public class Purchase {
     public double getPrice() {
         return item.getPrice();
     }
+
+    public Item getItem() {
+        return item;
+    }
 }

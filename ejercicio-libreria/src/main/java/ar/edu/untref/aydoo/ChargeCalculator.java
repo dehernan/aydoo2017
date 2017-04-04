@@ -11,11 +11,21 @@ public class ChargeCalculator {
         double amount = 0;
 
         List<Purchase> purchasesOnTheMonth = customer.getPurchasesByMonth(month);
-        Iterator<Purchase> iterator = purchasesOnTheMonth.iterator();
+        Iterator <Purchase> iterator = purchasesOnTheMonth.iterator();
+
 
         while (iterator.hasNext()) {
 
-            amount += iterator.next().getPrice();
+            Purchase actualPurchase = iterator.next();
+            if(actualPurchase.getItem() instanceof BookstoreItem){
+                amount += (actualPurchase.getPrice()*1.21);
+
+            }else{
+
+                amount += actualPurchase.getPrice();
+
+            }
+
 
         }
 

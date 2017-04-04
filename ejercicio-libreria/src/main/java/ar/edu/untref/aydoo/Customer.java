@@ -7,13 +7,21 @@ import java.util.List;
 /**
  * Created by hernan on 04/04/17.
  */
-public class Customer extends ChargeCalculator {
+public class Customer{
 
+    private String name;
+    private String adress;
+    private String locality;
     private List<Purchase> purchaseList = new ArrayList<Purchase>();
 
-    public Customer(String horacio, String s, String s1) {
-        super();
+
+    public Customer(String name, String adress, String locality){
+
+        this.name = name;
+        this.adress = adress;
+        this.locality = locality;
     }
+
 
     public List<Purchase> getPurchasesByMonth(Month month) {
 

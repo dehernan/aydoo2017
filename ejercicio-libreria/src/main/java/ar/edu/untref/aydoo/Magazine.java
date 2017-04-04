@@ -7,7 +7,7 @@ public class Magazine extends Item{
 
     public Magazine(String name, double price){
 
-        this.price = price;
-        this.name = name;
+        super(name, price);
+
     }
 }
