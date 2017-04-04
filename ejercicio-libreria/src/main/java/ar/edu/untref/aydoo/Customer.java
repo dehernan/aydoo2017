@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static ar.edu.untref.aydoo.SubscriptionType.ANUAL;
+import static ar.edu.untref.aydoo.SubscriptionType.MONTHLY;
+
 /**
  * Created by hernan on 04/04/17.
  */
@@ -13,6 +16,7 @@ public class Customer{
     private String adress;
     private String locality;
     private List<Purchase> purchaseList = new ArrayList<Purchase>();
+    List<Subscription> subscriptionsList = new ArrayList<Subscription>();
 
 
     public Customer(String name, String adress, String locality){
@@ -46,9 +50,62 @@ public class Customer{
 
     }
 
+    public List<Subscription> getMonthlySubscriptionsByMonth(Month month){
+
+        List<Subscription> subscriptionsOnTheMonth = new ArrayList<Subscription>();
+        Iterator<Subscription> iterator = subscriptionsList.iterator();
+
+        while(iterator.hasNext()){
+
+            Subscription actualSubscription = iterator.next();
+
+            if(actualSubscription.getSubscriptionType()==MONTHLY){
+
+                subscriptionsOnTheMonth.add(actualSubscription);
+
+            }
+
+        }
+
+        return subscriptionsOnTheMonth;
+    }
+
+    public List<Subscription> getAnualSubscriptionsByMonth(Month month){
+
+        List<Subscription> subscriptionsOnTheMonth = new ArrayList<Subscription>();
+        Iterator<Subscription> iterator = subscriptionsList.iterator();
+
+        while(iterator.hasNext()){
+
+            Subscription actualSubscription = iterator.next();
+
+            if(actualSubscription.getSubscriptionType()==ANUAL){
+
+                subscriptionsOnTheMonth.add(actualSubscription);
+
+            }
+
+        }
+
+        return subscriptionsOnTheMonth;
+    }
+
     public void addPurchase(Purchase purchase) {
 
         this.purchaseList.add(purchase);
 
     }
+
+    public void addMonthlySubscription(Item item, Month month){
+
+        this.subscriptionsList.add(new Subscription(item, MONTHLY, month));
+
+    }
+
+    public void addAnualSubscription(Item item){
+
+        this.subscriptionsList.add(new Subscription(item, ANUAL));
+
+    }
+
 }
