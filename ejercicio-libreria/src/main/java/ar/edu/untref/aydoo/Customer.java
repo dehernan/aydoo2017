@@ -97,13 +97,13 @@ public class Customer{
     }
 
 
-    public void addMonthlySubscription(Item item, Month month){
+    public void addMonthlySubscription(PeriodicItem item, Month month){
 
         this.subscriptionsList.add(new Subscription(item, MONTHLY, month));
 
     }
 
-    public void addAnualSubscription(Item item){
+    public void addAnualSubscription(PeriodicItem item){
 
         this.subscriptionsList.add(new Subscription(item, ANUAL));
 

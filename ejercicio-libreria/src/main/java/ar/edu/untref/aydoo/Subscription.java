@@ -7,16 +7,16 @@ public class Subscription {
 
     private SubscriptionType subscriptionType;
     private Month month;
-    private Item item;
+    private PeriodicItem item;
 
-    public Subscription(Item item, SubscriptionType subscriptionType){
+    public Subscription(PeriodicItem item, SubscriptionType subscriptionType){
 
         this.subscriptionType = subscriptionType;
         this.item = item;
 
     }
 
-    public Subscription(Item item, SubscriptionType subscriptionType, Month month){
+    public Subscription(PeriodicItem item, SubscriptionType subscriptionType, Month month){
 
         this.subscriptionType = subscriptionType;
         this.item = item;
