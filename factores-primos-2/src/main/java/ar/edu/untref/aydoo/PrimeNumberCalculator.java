@@ -31,7 +31,7 @@ public class PrimeNumberCalculator{
 
             if (i.startsWith("--format=")) {
 
-                this.format=(i.substring(9));
+                this.format=(i.substring(9, i.length()));
 
             } else {
 
