@@ -90,11 +90,12 @@ public class Customer{
         return subscriptionsOnTheMonth;
     }
 
-    public void addPurchase(Purchase purchase) {
+    public void addPurchase (Item item, Month month){
 
-        this.purchaseList.add(purchase);
+        this.purchaseList.add(new Purchase(item, month));
 
     }
+
 
     public void addMonthlySubscription(Item item, Month month){
 

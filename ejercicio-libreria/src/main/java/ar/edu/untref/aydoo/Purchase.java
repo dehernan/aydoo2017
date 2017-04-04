@@ -6,25 +6,17 @@ package ar.edu.untref.aydoo;
 public class Purchase {
 
     private Month month;
-    private Customer customer;
     private Item item;
 
-    public Purchase(Customer customer, Item item, Month month) {
+    public Purchase(Item item, Month month) {
 
-        this.customer = customer;
         this.month = month;
         this.item = item;
-
-        customer.addPurchase(this);
 
     }
 
     public Month getMonth() {
         return month;
-    }
-
-    public Customer getCustomer (){
-        return customer;
     }
 
     public double getPrice() {
