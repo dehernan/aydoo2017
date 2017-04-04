@@ -7,21 +7,38 @@ public class PrimeNumberCalculator{
 
     public List<Integer> factors = new ArrayList<Integer>();
     public static String output = "";
+    public String format = "pretty";
 
     public final void main(String arg[]){
         int number = Integer.parseInt(arg[0]);
-        String format = "";
 
-        if(arg.length>1) {
-            format = arg[1].toLowerCase();
+        for(String i: arg){
+            i.toLowerCase();
         }
-
 
         output ="Factores primos "+number+": ";
 
         calculateFactors(number);
+        evaluateParameters(arg);
         formatOutput(format);
         System.out.println(output);
+
+    }
+
+    private void evaluateParameters(String[] arg) {
+
+        for(String i: arg) {
+
+            if (i.startsWith("--format=")) {
+
+                this.format=(i.substring(9));
+
+            } else {
+
+                this.format=("pretty");
+
+            }
+        }
 
     }
 
@@ -50,15 +67,14 @@ public class PrimeNumberCalculator{
 
         switch(format){
 
-            case "":
-            case "--format=pretty":
+            case "pretty":
                 for(int i = 0; i < factors.size(); i++){
 
                     output = output.concat(factors.get(i)+" ");
 
                 }
                 break;
-            case "--format=quiet":
+            case "quiet":
                 output = output.concat("\n");
                 for(int i = (factors.size()-1); i >= 0; i--){
 
