@@ -9,10 +9,8 @@ public class Purchase {
     private Item item;
 
     public Purchase(Item item, Month month) {
-
         this.month = month;
         this.item = item;
-
     }
 
     public Month getMonth() {

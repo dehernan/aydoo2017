@@ -13,8 +13,7 @@ public abstract class PeriodicItem extends Item{
     }
 
     public Periodicity getPeriodicity(){
-
         return periodicity;
-
     }
+
 }

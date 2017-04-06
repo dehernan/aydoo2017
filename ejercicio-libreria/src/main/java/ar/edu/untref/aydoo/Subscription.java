@@ -8,16 +8,11 @@ public abstract class Subscription {
     private PeriodicItem item;
 
     public Subscription(PeriodicItem item) {
-
         this.item = item;
-
     }
 
-
     public Item getItem(){
-
         return this.item;
-
     }
 
 }
