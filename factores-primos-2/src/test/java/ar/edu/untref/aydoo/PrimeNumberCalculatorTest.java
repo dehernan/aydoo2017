@@ -52,7 +52,6 @@ public class PrimeNumberCalculatorTest{
         Assert.assertEquals("Factores primos 360: 2 2 2 3 3 5 ", calculator.output);
     }
 
-
     @Test
     public void number360WithWrongFormatParameterTest() {
 
@@ -64,7 +63,6 @@ public class PrimeNumberCalculatorTest{
 
         Assert.assertEquals("Formato no aceptado. Las opciones posibles son: pretty o quiet.", calculator.output);
     }
-
 
     @Test
     public void number360WithWrongParameterShouldReturnPrettyFormat() {
