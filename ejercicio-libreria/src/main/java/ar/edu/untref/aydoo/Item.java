@@ -7,9 +7,9 @@ public abstract class Item {
 
     String name;
     double price;
-    Periodicity periodicity;
 
-    public Item(String name, double price){
+
+    public Item(String name, double price) {
         this.name = name;
         this.price = price;
     }
@@ -18,7 +18,4 @@ public abstract class Item {
         return price;
     }
 
-    public Periodicity getPeriodicity() {
-        return periodicity;
-    }
 }

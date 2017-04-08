@@ -11,8 +11,9 @@ public abstract class Subscription {
         this.item = item;
     }
 
-    public Item getItem(){
+    public  PeriodicItem getItem(){
         return this.item;
     }
+
 
 }
