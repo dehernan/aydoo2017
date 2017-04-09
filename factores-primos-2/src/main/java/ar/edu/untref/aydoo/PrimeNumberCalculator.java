@@ -5,11 +5,13 @@ import java.util.List;
 
 public class PrimeNumberCalculator{
 
-    public List<Integer> factors = new ArrayList<Integer>();
+    public static List<Integer> factors;
     public static String output = "";
-    public String format = "pretty";
+    public static String format = "pretty";
 
-    public final void main(String arg[]){
+    public static final void main(String arg[]){
+        factors = new ArrayList<>();
+        format = "pretty";
         int number = Integer.parseInt(arg[0]);
         for(int i = 0; i < arg.length; i++){
             arg[i]=arg[i].toLowerCase();
@@ -24,17 +26,17 @@ public class PrimeNumberCalculator{
 
     }
 
-    private void evaluateParameters(String[] arg) {
+    private static void evaluateParameters(String[] arg) {
         for(String i: arg) {
             if (i.startsWith("--format=")) {
-                this.format = i.substring(9, i.length());
+                format = i.substring(9, i.length());
             } else {
-                this.format=("pretty");
+                format=("pretty");
             }
         }
     }
 
-    public void calculateFactors(int number){
+    public static void calculateFactors(int number){
         if(number == 1){
             factors.add(number);
         }
@@ -46,7 +48,7 @@ public class PrimeNumberCalculator{
         }
     }
 
-    public void formatOutput(String format){
+    public static void formatOutput(String format){
         switch(format){
             case "":
             case "pretty":
