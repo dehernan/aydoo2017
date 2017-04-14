@@ -1,8 +1,5 @@
 package ar.edu.untref.aydoo;
 
-/**
- * Created by hernan on 04/04/17.
- */
 public abstract class PeriodicItem extends Item{
 
     Periodicity periodicity;
@@ -14,6 +11,14 @@ public abstract class PeriodicItem extends Item{
 
     public Periodicity getPeriodicity(){
         return periodicity;
+    }
+
+    public Double getMonthlySubscriptionPrice(){
+        return price;
+    }
+
+    public Double getAnualSubscriptionPrice(){
+        return price*0.8;
     }
 
 }

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by hernan on 04/04/17.
- */
 public class Customer{
 
     private String name;
@@ -55,6 +52,77 @@ public class Customer{
             }
         }
         return subscriptionsOnTheMonth;
+    }
+
+    public double calculateTotalAmountToBeCharged(Month month) {
+        double amount = 0;
+        amount += calculateAmountOfPurchases(month);
+        amount += calculateAmountOfMonthlySubscriptionsByMonth(month);
+        amount += calculateAmountOfAnualSubsctiptionsByMonth(month);
+
+        return amount;
+    }
+
+    public double calculateAmountOfPurchases(Month month){
+        double amount = 0;
+        List<Purchase> purchasesOnTheMonth = this.getPurchasesByMonth(month);
+        Iterator <Purchase> iterator = purchasesOnTheMonth.iterator();
+        while (iterator.hasNext()) {
+            amount += iterator.next().getPrice();
+        }
+        return amount;
+    }
+
+    public double calculateAmountOfMonthlySubscriptionsByMonth(Month month){
+        double amount = 0;
+        List<Subscription> monthlySubscriptionsOnTheMonth = this.getMonthlySubscriptionsByMonth(month);
+        Iterator <Subscription> iterator = monthlySubscriptionsOnTheMonth.iterator();
+        while (iterator.hasNext()) {
+            Subscription actualSubscription = iterator.next();
+            switch(actualSubscription.getItem().getPeriodicity()) {
+                case DAILY:
+                    amount += actualSubscription.getItem().getMonthlySubscriptionPrice() * (month.getDaysOfTheMonth());
+                    break;
+                case WEEKLY:
+                    amount += actualSubscription.getItem().getMonthlySubscriptionPrice() * 4;
+                    break;
+                case BIWEEKLY:
+                    amount += actualSubscription.getItem().getMonthlySubscriptionPrice() * 2;
+                    break;
+                case MONTHLY:
+                    amount += actualSubscription.getItem().getMonthlySubscriptionPrice();
+                    break;
+                default:
+                    break;
+            }
+        }
+        return amount;
+    }
+
+    public double calculateAmountOfAnualSubsctiptionsByMonth(Month month){
+        double amount = 0;
+        List<Subscription> anualSubscriptionsOnTheMonth = this.getAnualSubscriptionsByMonth(month);
+        Iterator <Subscription> iterator = anualSubscriptionsOnTheMonth.iterator();
+        while (iterator.hasNext()) {
+            Subscription actualSubscription = iterator.next();
+            switch(actualSubscription.getItem().getPeriodicity()) {
+                case DAILY:
+                    amount += actualSubscription.getItem().getAnualSubscriptionPrice() * month.getDaysOfTheMonth();
+                    break;
+                case WEEKLY:
+                    amount += actualSubscription.getItem().getAnualSubscriptionPrice() * 4;
+                    break;
+                case BIWEEKLY:
+                    amount += actualSubscription.getItem().getAnualSubscriptionPrice() * 2;
+                    break;
+                case MONTHLY:
+                    amount += actualSubscription.getItem().getAnualSubscriptionPrice();
+                    break;
+                default:
+                    break;
+            }
+        }
+        return amount;
     }
 
     public void addPurchase (Item item, Month month){

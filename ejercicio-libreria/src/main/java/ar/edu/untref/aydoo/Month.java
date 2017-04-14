@@ -1,8 +1,25 @@
 package ar.edu.untref.aydoo;
 
-/**
- * Created by hernan on 04/04/17.
- */
 public enum Month {
-    JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER
+    JANUARY(31),
+    FEBRUARY(28),
+    MARCH(31),
+    APRIL(30),
+    MAY(31),
+    JUNE(30),
+    JULY(31),
+    AUGUST(31),
+    SEPTEMBER(30),
+    OCTOBER(31),
+    NOVEMBER(30),
+    DECEMBER(31);
+
+    int daysOfTheMonth;
+    Month(int days) {
+        daysOfTheMonth = days;
+    }
+
+    public int getDaysOfTheMonth(){
+        return daysOfTheMonth;
+    }
 }

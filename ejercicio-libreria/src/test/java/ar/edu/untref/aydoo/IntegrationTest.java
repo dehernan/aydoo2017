@@ -13,14 +13,6 @@ import static ar.edu.untref.aydoo.Periodicity.WEEKLY;
 
 public class IntegrationTest{
 
-    ChargeCalculator calculator;
-
-    @Before
-    public void createCalculator(){
-
-        calculator = new ChargeCalculator();
-
-    }
     @Test
     public void shouldCalculateAmountOfOneBook(){
         Book firstBook = new Book("El psicoanalista", 30.0);
@@ -28,7 +20,7 @@ public class IntegrationTest{
 
         horacio.addPurchase(firstBook, JANUARY);
 
-        Assert.assertEquals(30.0, calculator.calculateAmountToBeCharged(JANUARY, horacio),0.0);
+        Assert.assertEquals(30.0, horacio.calculateTotalAmountToBeCharged(JANUARY),0.0);
     }
 
     @Test
@@ -40,7 +32,7 @@ public class IntegrationTest{
         horacio.addPurchase(firstBook, JANUARY);
         horacio.addPurchase(secondBook, JANUARY);
 
-        Assert.assertEquals(80.5, calculator.calculateAmountToBeCharged(JANUARY, horacio),0.0);
+        Assert.assertEquals(80.5, horacio.calculateTotalAmountToBeCharged(JANUARY),0.0);
     }
 
     @Test
@@ -54,7 +46,7 @@ public class IntegrationTest{
         horacio.addPurchase(secondBook, JANUARY);
         horacio.addPurchase(firstMagazine, JANUARY);
 
-        Assert.assertEquals(85.5, calculator.calculateAmountToBeCharged(JANUARY, horacio),0.0);
+        Assert.assertEquals(85.5, horacio.calculateTotalAmountToBeCharged(JANUARY),0.0);
     }
 
     @Test
@@ -70,7 +62,7 @@ public class IntegrationTest{
         horacio.addPurchase(firstMagazine, JANUARY);
         horacio.addPurchase(secondMagazine, JANUARY);
 
-        Assert.assertEquals(93.5, calculator.calculateAmountToBeCharged(JANUARY, horacio),0.0);
+        Assert.assertEquals(93.5, horacio.calculateTotalAmountToBeCharged(JANUARY),0.0);
     }
 
     @Test
@@ -81,7 +73,7 @@ public class IntegrationTest{
 
         horacio.addPurchase(bookstoreItem, JANUARY);
 
-        Assert.assertEquals(6.05, calculator.calculateAmountToBeCharged(JANUARY, horacio), 0.0);
+        Assert.assertEquals(6.05, horacio.calculateTotalAmountToBeCharged(JANUARY), 0.0);
 
     }
 
@@ -95,7 +87,7 @@ public class IntegrationTest{
         horacio.addPurchase(firstBookstoreItem, JANUARY);
         horacio.addPurchase(secondBookstoreItem, JANUARY);
 
-        Assert.assertEquals(15.73, calculator.calculateAmountToBeCharged(JANUARY, horacio), 0.0);
+        Assert.assertEquals(15.73, horacio.calculateTotalAmountToBeCharged(JANUARY), 0.0);
 
     }
 
@@ -105,7 +97,7 @@ public class IntegrationTest{
         Magazine magazine = new Magazine("Gente", 5, DAILY);
         Customer horacio = new Customer("Horacio", "Remedios de Escalada 1234", "San Martin");
         horacio.addMonthlySubscription(magazine, JANUARY);
-        Assert.assertEquals(155, calculator.calculateAmountOfMonthlySubscriptionsByMonth(JANUARY, horacio), 0.0);
+        Assert.assertEquals(155, horacio.calculateTotalAmountToBeCharged(JANUARY), 0.0);
 
     }
 
@@ -115,7 +107,7 @@ public class IntegrationTest{
         Magazine magazine = new Magazine("Gente", 5, DAILY);
         Customer horacio = new Customer("Horacio", "Remedios de Escalada 1234", "San Martin");
         horacio.addAnualSubscription(magazine);
-        Assert.assertEquals(124, calculator.calculateAmountToBeCharged(JANUARY, horacio),0.0);
+        Assert.assertEquals(124, horacio.calculateTotalAmountToBeCharged(JANUARY),0.0);
 
     }
 
@@ -127,7 +119,7 @@ public class IntegrationTest{
         Customer horacio = new Customer("Horacio", "Remedios de Escalada 1234", "San Martin");
         horacio.addMonthlySubscription(gente, JANUARY);
         horacio.addAnualSubscription(elgrafico);
-        Assert.assertEquals(180.6, calculator.calculateAmountToBeCharged(JANUARY, horacio), 0.0);
+        Assert.assertEquals(180.6, horacio.calculateTotalAmountToBeCharged(JANUARY), 0.0);
 
     }
 
@@ -146,7 +138,7 @@ public class IntegrationTest{
         juan.addPurchase(lapicera, AUGUST);
         juan.addPurchase(elgrafico, AUGUST);
 
-        Assert.assertEquals(92.1, calculator.calculateAmountToBeCharged(AUGUST, juan), 0.0);
+        Assert.assertEquals(92.1, juan.calculateTotalAmountToBeCharged(AUGUST), 0.0);
 
     }
 
@@ -164,7 +156,7 @@ public class IntegrationTest{
         maria.addAnualSubscription(barcelona);
         maria.addPurchase(pagina12, JANUARY);
 
-        Assert.assertEquals(44, calculator.calculateAmountToBeCharged(JANUARY, maria), 0.0);
+        Assert.assertEquals(44, maria.calculateTotalAmountToBeCharged(JANUARY), 0.0);
 
     }
 
