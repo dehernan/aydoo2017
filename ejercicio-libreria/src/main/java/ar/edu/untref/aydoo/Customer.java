@@ -78,23 +78,7 @@ public class Customer{
         List<Subscription> monthlySubscriptionsOnTheMonth = this.getMonthlySubscriptionsByMonth(month);
         Iterator <Subscription> iterator = monthlySubscriptionsOnTheMonth.iterator();
         while (iterator.hasNext()) {
-            Subscription actualSubscription = iterator.next();
-            switch(actualSubscription.getItem().getPeriodicity()) {
-                case DAILY:
-                    amount += actualSubscription.getItem().getMonthlySubscriptionPrice() * (month.getDaysOfTheMonth());
-                    break;
-                case WEEKLY:
-                    amount += actualSubscription.getItem().getMonthlySubscriptionPrice() * 4;
-                    break;
-                case BIWEEKLY:
-                    amount += actualSubscription.getItem().getMonthlySubscriptionPrice() * 2;
-                    break;
-                case MONTHLY:
-                    amount += actualSubscription.getItem().getMonthlySubscriptionPrice();
-                    break;
-                default:
-                    break;
-            }
+            amount += iterator.next().getPriceByMonth(month);
         }
         return amount;
     }
@@ -104,23 +88,7 @@ public class Customer{
         List<Subscription> anualSubscriptionsOnTheMonth = this.getAnualSubscriptionsByMonth(month);
         Iterator <Subscription> iterator = anualSubscriptionsOnTheMonth.iterator();
         while (iterator.hasNext()) {
-            Subscription actualSubscription = iterator.next();
-            switch(actualSubscription.getItem().getPeriodicity()) {
-                case DAILY:
-                    amount += actualSubscription.getItem().getAnualSubscriptionPrice() * month.getDaysOfTheMonth();
-                    break;
-                case WEEKLY:
-                    amount += actualSubscription.getItem().getAnualSubscriptionPrice() * 4;
-                    break;
-                case BIWEEKLY:
-                    amount += actualSubscription.getItem().getAnualSubscriptionPrice() * 2;
-                    break;
-                case MONTHLY:
-                    amount += actualSubscription.getItem().getAnualSubscriptionPrice();
-                    break;
-                default:
-                    break;
-            }
+           amount += iterator.next().getPriceByMonth(month);
         }
         return amount;
     }

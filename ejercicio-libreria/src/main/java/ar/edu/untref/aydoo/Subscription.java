@@ -8,9 +8,10 @@ public abstract class Subscription {
         this.item = item;
     }
 
-    public  PeriodicItem getItem(){
+    public PeriodicItem getItem() {
         return this.item;
     }
 
+    abstract public Double getPriceByMonth(Month month);
 
 }
