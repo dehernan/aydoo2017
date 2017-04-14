@@ -6,4 +6,9 @@ public class Book extends Item{
         super(name, price);
     }
 
+    @Override
+    public double getPrice() {
+        return price;
+    }
+
 }

@@ -11,8 +11,6 @@ public abstract class Item {
         this.price = price;
     }
 
-    public double getPrice() {
-        return price;
-    }
+    abstract public double getPrice();
 
 }

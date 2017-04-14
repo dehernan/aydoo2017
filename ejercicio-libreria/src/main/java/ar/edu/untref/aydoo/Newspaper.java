@@ -6,4 +6,8 @@ public class Newspaper extends PeriodicItem{
         super(name, price, periodicity);
     }
 
+    @Override
+    public double getPrice() {
+        return price;
+    }
 }

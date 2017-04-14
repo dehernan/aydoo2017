@@ -6,6 +6,7 @@ public class BookstoreItem extends Item{
         super(name, price);
     }
 
+    @Override
     public double getPrice(){
 
         return price*1.21;
