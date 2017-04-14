@@ -54,16 +54,16 @@ public class Customer{
         return subscriptionsOnTheMonth;
     }
 
-    public double calculateTotalAmountToBeCharged(Month month) {
+    public double calculateTotalAmountToBeChargedByMonth(Month month) {
         double amount = 0;
-        amount += calculateAmountOfPurchases(month);
+        amount += calculateAmountOfPurchasesByMonth(month);
         amount += calculateAmountOfMonthlySubscriptionsByMonth(month);
         amount += calculateAmountOfAnualSubsctiptionsByMonth(month);
 
         return amount;
     }
 
-    public double calculateAmountOfPurchases(Month month){
+    public double calculateAmountOfPurchasesByMonth(Month month){
         double amount = 0;
         List<Purchase> purchasesOnTheMonth = this.getPurchasesByMonth(month);
         Iterator <Purchase> iterator = purchasesOnTheMonth.iterator();
