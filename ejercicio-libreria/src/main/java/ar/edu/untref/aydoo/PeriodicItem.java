@@ -1,5 +1,6 @@
 package ar.edu.untref.aydoo;
 
+/*Tipo de objeto: Entidad*/
 public abstract class PeriodicItem extends Item{
 
     Periodicity periodicity;

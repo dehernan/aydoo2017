@@ -1,5 +1,6 @@
 package ar.edu.untref.aydoo;
 
+/*Tipo de objeto: Entidad*/
 public class BookstoreItem extends Item{
 
     public BookstoreItem(String name, double price){

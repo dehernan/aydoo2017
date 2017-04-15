@@ -1,5 +1,6 @@
 package ar.edu.untref.aydoo;
 
+/*Tipo de objeto: Entidad*/
 public abstract class Subscription {
 
     private PeriodicItem item;

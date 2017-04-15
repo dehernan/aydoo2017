@@ -1,5 +1,6 @@
 package ar.edu.untref.aydoo;
 
+/*Tipo de objeto: Objeto de valor*/
 public enum Month {
     JANUARY(31),
     FEBRUARY(28),

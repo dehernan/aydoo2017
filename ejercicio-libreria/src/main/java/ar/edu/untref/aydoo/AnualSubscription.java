@@ -1,5 +1,6 @@
 package ar.edu.untref.aydoo;
 
+/*Tipo de objeto: Entidad*/
 public class AnualSubscription extends Subscription{
 
     public AnualSubscription(PeriodicItem item){

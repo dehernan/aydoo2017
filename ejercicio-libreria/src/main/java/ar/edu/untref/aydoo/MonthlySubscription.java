@@ -1,5 +1,6 @@
 package ar.edu.untref.aydoo;
 
+/*Tipo de objeto: Entidad*/
 public class MonthlySubscription extends Subscription{
 
     Month month;

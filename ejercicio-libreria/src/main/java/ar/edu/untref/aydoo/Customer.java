@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/*Tipo de objet: Entidad, Servicio y Agregado*/
 public class Customer{
 
     private String name;
