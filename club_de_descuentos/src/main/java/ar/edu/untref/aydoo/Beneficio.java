@@ -6,8 +6,8 @@ public class Beneficio {
     protected Establecimiento establecimiento;
     protected Sucursal sucursal;
     protected String nombreProducto;
-    protected Double valorSinBeneficio;
-    protected Double valorConBeneficio;
+    protected double valorSinBeneficio;
+    protected double valorConBeneficio;
 
     public Beneficio(Cliente cliente, Establecimiento establecimiento, Sucursal sucursal, String nombreProducto, double valorSinBeneficio, double valorConBeneficio) {
         this.cliente = cliente;
