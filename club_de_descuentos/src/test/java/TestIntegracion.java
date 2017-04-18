@@ -85,4 +85,117 @@ public class TestIntegracion {
 
     }
 
+    @Test
+    public void testAdherirBeneficioDescuentoYPromocion2x1ParaElMismoEstablecimiento() throws PreciosInvalidosParaPromocion2x1, PorcentajeDescuentoInvalido{
+        ClubDeDescuento clubDeDescuento = new ClubDeDescuento();
+        TarjetaBeneficio tarjetaBeneficioClassic = new TarjetaBeneficioClassic();
+        Establecimiento libreriaElAltillo = new Establecimiento("El Altillo", "elaltillo@elaltillo.com.ar");
+        libreriaElAltillo.adherirBeneficioDescuento(50.0, tarjetaBeneficioClassic);
+        libreriaElAltillo.adherirBeneficioPromocion2x1(tarjetaBeneficioClassic);
+        Sucursal s1 = new Sucursal("s1", "Direccion s1", libreriaElAltillo);
+        clubDeDescuento.adherirEstablecimiento(libreriaElAltillo);
+        Cliente mateo = clubDeDescuento.adherirCliente("Mateo", "mateo@aydoo.edu.ar", tarjetaBeneficioClassic);
+
+        s1.registrarBeneficioPromocion2x1(mateo, "Martin Fierro",100.0, "El cantar del Cid", 80.0);
+        s1.registrarBeneficioDescuento(mateo, "El psicoanalista", 80.0);
+
+        Map<Cliente, Double> totalDeAhorroPorClienteEsperado = new HashMap<>();
+        totalDeAhorroPorClienteEsperado.put(mateo, 120.0);
+        Map<Cliente, Double> totalDeAhorroPorCliente = clubDeDescuento.obtenerTotalDeAhorroPorCliente();
+
+        Assert.assertEquals(totalDeAhorroPorClienteEsperado, totalDeAhorroPorCliente);
+    }
+
+    @Test
+    public void testObtenerEstablecimientoConMasBeneficiosOtorgados() throws PorcentajeDescuentoInvalido {
+        ClubDeDescuento clubDeDescuento = new ClubDeDescuento();
+        // Tarjetas ofrecidas
+        TarjetaBeneficio tarjetaBeneficioPremium = new TarjetaBeneficioPremium();
+        TarjetaBeneficio tarjetaBeneficioClassic = new TarjetaBeneficioClassic();
+        // Estableclimiento Heladeria A , sucursales y tipos de beneficio segun tarjeta
+        Establecimiento heladeriaA = new Establecimiento("Heladeria A", "heladeria@restaurantB.edu.ar");
+        heladeriaA.adherirBeneficioDescuento(10.0, tarjetaBeneficioClassic);
+        heladeriaA.adherirBeneficioDescuento(20.0, tarjetaBeneficioPremium);
+        Sucursal s1 = new Sucursal("s1", "Direccion s1", heladeriaA);
+        Sucursal s2 = new Sucursal("s2", "Direccion s2", heladeriaA);
+        // Establecimiento Restaurant B, sucursales y tipo de beneficios segun tarjeta
+        Establecimiento restaurantB = new Establecimiento("Restaurant B", "establecimiento@restaurantB.edu.ar");
+        restaurantB.adherirBeneficioDescuento(20.0, tarjetaBeneficioClassic);
+        restaurantB.adherirBeneficioDescuento(20.0, tarjetaBeneficioPremium);
+        Sucursal s3 = new Sucursal("s3", "Direccion s3", restaurantB);
+        // Registro de establecimiento al club de descuento
+        clubDeDescuento.adherirEstablecimiento(heladeriaA);
+        clubDeDescuento.adherirEstablecimiento(restaurantB);
+        // Clientes que realizaran las operaciones
+        Cliente carlos = clubDeDescuento.adherirCliente("Carlos", "carlos@aydoo.edu.ar", tarjetaBeneficioClassic);
+        Cliente juan = clubDeDescuento.adherirCliente("Juan", "juan@aydoo.edu.ar", tarjetaBeneficioPremium);
+        Cliente clientePremium = clubDeDescuento.adherirCliente("Cliente Anonimo Premium", "premium@aydoo.edu.ar", tarjetaBeneficioPremium);
+        Cliente clienteClassic = clubDeDescuento.adherirCliente("Cliente Anonimo Classic", "classic@aydoo.edu.ar", tarjetaBeneficioPremium);
+
+        s1.registrarBeneficioDescuento(carlos, "Helado", 1000.0);
+        s1.registrarBeneficioDescuento(clienteClassic, "Helado", 1000.0);
+        s1.registrarBeneficioDescuento(clienteClassic, "Helado", 1000.0);
+        s1.registrarBeneficioDescuento(clienteClassic, "Helado", 1000.0);
+        s1.registrarBeneficioDescuento(juan, "Helado", 1000.0);
+        s1.registrarBeneficioDescuento(clientePremium, "Helado",1000.0);
+        s1.registrarBeneficioDescuento(clientePremium, "Helado", 1000.0);
+        s3.registrarBeneficioDescuento(carlos, "Almuerzo", 1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "Almuerzo", 1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "Cena", 1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "Almuerzo", 1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "Cena",1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "Cena", 1000.0);
+
+        Establecimiento establecimientoConMasBeneficiosOtorgados = clubDeDescuento.obtenerEstablecimientoConMasBeneficiosOtorgados();
+
+        Assert.assertEquals(heladeriaA, establecimientoConMasBeneficiosOtorgados);
+    }
+
+    @Test
+    public void testObtenerSucursalConMasBeneficiosOtorgados() throws PorcentajeDescuentoInvalido {
+        ClubDeDescuento clubDeDescuento = new ClubDeDescuento();
+        // Tarjetas ofrecidas
+        TarjetaBeneficio tarjetaBeneficioPremium = new TarjetaBeneficioPremium();
+        TarjetaBeneficio tarjetaBeneficioClassic = new TarjetaBeneficioClassic();
+        // Estableclimiento Heladeria A , sucursales y tipos de beneficio segun tarjeta
+        Establecimiento heladeriaA = new Establecimiento("Heladeria A", "heladeria@restaurantB.edu.ar");
+        heladeriaA.adherirBeneficioDescuento(10.0, tarjetaBeneficioClassic);
+        heladeriaA.adherirBeneficioDescuento(20.0, tarjetaBeneficioPremium);
+        Sucursal s1 = new Sucursal("s1", "Direccion s1", heladeriaA);
+        Sucursal s2 = new Sucursal("s2", "Direccion s2", heladeriaA);
+        // Establecimiento Restaurant B, sucursales y tipo de beneficios segun tarjeta
+        Establecimiento restaurantB = new Establecimiento("Restaurant B", "establecimiento@restaurantB.edu.ar");
+        restaurantB.adherirBeneficioDescuento(20.0, tarjetaBeneficioClassic);
+        restaurantB.adherirBeneficioDescuento(20.0, tarjetaBeneficioPremium);
+        Sucursal s3 = new Sucursal("s3", "Direccion s3", restaurantB);
+        // Registro de establecimiento al club de descuento
+        clubDeDescuento.adherirEstablecimiento(heladeriaA);
+        clubDeDescuento.adherirEstablecimiento(restaurantB);
+        // Clientes que realizaran las operaciones
+        Cliente carlos = clubDeDescuento.adherirCliente("Carlos", "carlos@aydoo.edu.ar", tarjetaBeneficioClassic);
+        Cliente juan = clubDeDescuento.adherirCliente("Juan", "juan@aydoo.edu.ar", tarjetaBeneficioPremium);
+        Cliente clientePremium = clubDeDescuento.adherirCliente("Cliente Anonimo Premium", "premium@aydoo.edu.ar", tarjetaBeneficioPremium);
+        Cliente clienteClassic = clubDeDescuento.adherirCliente("Cliente Anonimo Classic", "classic@aydoo.edu.ar", tarjetaBeneficioPremium);
+
+        s1.registrarBeneficioDescuento(carlos, "Helado",1000.0);
+        s1.registrarBeneficioDescuento(clienteClassic, "Hlado", 1000.0);
+        s1.registrarBeneficioDescuento(clienteClassic, "Helado", 1000.0);
+        s1.registrarBeneficioDescuento(clienteClassic, "Helado", 1000.0);
+        s1.registrarBeneficioDescuento(juan, "Helado", 1000.0);
+        s1.registrarBeneficioDescuento(clientePremium, "Helado", 1000.0);
+        s1.registrarBeneficioDescuento(clientePremium, "Helado", 1000.0);
+        s3.registrarBeneficioDescuento(carlos, "Cena", 1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "Almuerzo", 1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "Cena", 1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "Cena", 1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "Almuerzo",1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "Almuerzo", 1000.0);
+
+        Sucursal sucursalConMasBeneficiosOtorgados = clubDeDescuento.obtenerSucursalConMasBeneficiosOtorgados();
+
+        Assert.assertEquals(s1, sucursalConMasBeneficiosOtorgados);
+
+    }
+
+
 }
