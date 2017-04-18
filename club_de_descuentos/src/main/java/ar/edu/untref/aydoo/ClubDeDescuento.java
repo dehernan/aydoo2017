@@ -67,19 +67,16 @@ public class ClubDeDescuento {
         return clienteYMontoObtenido;
     }
 
-    public Map<Cliente, Mail> enviarReporteMensualPorCliente(){
+    public Map<Cliente, Mail> obtenerReporteMensualPorCliente(){
         Map <Cliente, Mail> reporteMensual= new HashMap<>();
-
         for(Cliente cliente: this.obtenerClientes()){
-
             if(cliente.obtenerMontoAhorrado()>0){
-
                 List<Beneficio> beneficiosDelCliente = cliente.obtenerBeneficiosObtenidos();
                 Iterator<Beneficio> iterador = beneficiosDelCliente.iterator();
                 while(iterador.hasNext()) {
                     Beneficio beneficioActual = iterador.next();
                     Mail mailAEnviar = new Mail(beneficioActual.obtenerEstablecimiento(),  beneficioActual.obtenerProducto(),
-                            beneficioActual.obtenerValorSinBeneficio(), beneficioActual.obtenerValorConBeneficio());
+                            beneficioActual.obtenerValorSinBeneficio(), beneficioActual.obtenerValorSinBeneficio()-beneficioActual.obtenerValorConBeneficio());
                     reporteMensual.put(cliente, mailAEnviar);
                 }
             }

@@ -4,8 +4,7 @@ import ar.edu.untref.aydoo.exceptions.PreciosInvalidosParaPromocion2x1;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TestIntegracion {
 
@@ -147,6 +146,88 @@ public class TestIntegracion {
     }
 
     @Test
+    public void testObtenerEstablecimientoConMasBeneficiosOtorgados2() throws PorcentajeDescuentoInvalido, PreciosInvalidosParaPromocion2x1 {
+        ClubDeDescuento clubDeDescuento = new ClubDeDescuento();
+        TarjetaBeneficio tarjetaBeneficioPremium = new TarjetaBeneficioPremium();
+        TarjetaBeneficio tarjetaBeneficioClassic = new TarjetaBeneficioClassic();
+        Establecimiento libreriaElAltillo = new Establecimiento("El Altillo", "elaltillo@elaltillo.com.ar");
+        libreriaElAltillo.adherirBeneficioDescuento(20.0, tarjetaBeneficioClassic);
+        libreriaElAltillo.adherirBeneficioPromocion2x1(tarjetaBeneficioPremium);
+        Sucursal s1 = new Sucursal("s1", "Direccion s1", libreriaElAltillo);
+        Sucursal s2 = new Sucursal("s2", "Direccion s2", libreriaElAltillo);
+        Establecimiento libreriaElAteneo = new Establecimiento("El Ateneo", "elateneo@elateneo.com.ar");
+        libreriaElAteneo.adherirBeneficioDescuento(30, tarjetaBeneficioClassic);
+        libreriaElAteneo.adherirBeneficioPromocion2x1(tarjetaBeneficioPremium);
+        Sucursal s3 = new Sucursal("s3", "Direccion s3", libreriaElAteneo);
+        clubDeDescuento.adherirEstablecimiento(libreriaElAltillo);
+        clubDeDescuento.adherirEstablecimiento(libreriaElAteneo);
+        Cliente carlos = clubDeDescuento.adherirCliente("Carlos", "carlos@aydoo.edu.ar", tarjetaBeneficioClassic);
+        Cliente juan = clubDeDescuento.adherirCliente("Juan", "juan@aydoo.edu.ar", tarjetaBeneficioPremium);
+        Cliente clientePremium = clubDeDescuento.adherirCliente("Cliente Anonimo Premium", "premium@aydoo.edu.ar", tarjetaBeneficioPremium);
+        Cliente clienteClassic = clubDeDescuento.adherirCliente("Cliente Anonimo Classic", "classic@aydoo.edu.ar", tarjetaBeneficioClassic);
+
+        s1.registrarBeneficioDescuento(carlos, "Harry Potter",200.0);
+        s1.registrarBeneficioDescuento(carlos, "Cruce Peligroso", 100.0);
+        s1.registrarBeneficioDescuento(carlos, "La lechuza", 100.0);
+        s1.registrarBeneficioDescuento(clienteClassic, "Ingenieria de Software", 500.0);
+        s1.registrarBeneficioDescuento(clienteClassic, "Martin Fierro", 100.0);
+        s2.registrarBeneficioDescuento(clienteClassic, "El caballero de la armadura oxidada", 100.0);
+        s2.registrarBeneficioDescuento(clienteClassic, "El psicoanalista", 200.0);
+        s2.registrarBeneficioDescuento(clienteClassic, "Los Silicon Boys", 1000.0);
+        s2.registrarBeneficioDescuento(clienteClassic, ".NET", 1000.0);
+        s2.registrarBeneficioDescuento(clienteClassic, "SQL Server", 1000.0);
+        s2.registrarBeneficioPromocion2x1(juan, "Juegos de Ingenio", 100.0, "El emperador", 200);
+        s3.registrarBeneficioPromocion2x1(clientePremium, "Martin Fierro", 100.0, "El cantar del Cid", 80.0);
+        s3.registrarBeneficioPromocion2x1(clientePremium, "Harry Potter",200.0, "Harry Potter 2", 250);
+
+        Sucursal sucursalConMasBeneficiosOtorgados = clubDeDescuento.obtenerSucursalConMasBeneficiosOtorgados();
+
+        Assert.assertEquals(libreriaElAltillo, clubDeDescuento.obtenerEstablecimientoConMasBeneficiosOtorgados());
+
+    }
+
+    @Test
+    public void testObtenerEstablecimientoConMasBeneficiosOtorgados3() throws PorcentajeDescuentoInvalido, PreciosInvalidosParaPromocion2x1 {
+        ClubDeDescuento clubDeDescuento = new ClubDeDescuento();
+        TarjetaBeneficio tarjetaBeneficioPremium = new TarjetaBeneficioPremium();
+        TarjetaBeneficio tarjetaBeneficioClassic = new TarjetaBeneficioClassic();
+        Establecimiento libreriaElAltillo = new Establecimiento("El Altillo", "elaltillo@elaltillo.com.ar");
+        libreriaElAltillo.adherirBeneficioDescuento(20.0, tarjetaBeneficioClassic);
+        libreriaElAltillo.adherirBeneficioPromocion2x1(tarjetaBeneficioPremium);
+        Sucursal s1 = new Sucursal("s1", "Direccion s1", libreriaElAltillo);
+        Sucursal s2 = new Sucursal("s2", "Direccion s2", libreriaElAltillo);
+        Establecimiento libreriaElAteneo = new Establecimiento("El Ateneo", "elateneo@elateneo.com.ar");
+        libreriaElAteneo.adherirBeneficioDescuento(30, tarjetaBeneficioClassic);
+        libreriaElAteneo.adherirBeneficioPromocion2x1(tarjetaBeneficioPremium);
+        Sucursal s3 = new Sucursal("s3", "Direccion s3", libreriaElAteneo);
+        clubDeDescuento.adherirEstablecimiento(libreriaElAltillo);
+        clubDeDescuento.adherirEstablecimiento(libreriaElAteneo);
+        Cliente carlos = clubDeDescuento.adherirCliente("Carlos", "carlos@aydoo.edu.ar", tarjetaBeneficioClassic);
+        Cliente juan = clubDeDescuento.adherirCliente("Juan", "juan@aydoo.edu.ar", tarjetaBeneficioPremium);
+        Cliente clientePremium = clubDeDescuento.adherirCliente("Cliente Anonimo Premium", "premium@aydoo.edu.ar", tarjetaBeneficioPremium);
+        Cliente clienteClassic = clubDeDescuento.adherirCliente("Cliente Anonimo Classic", "classic@aydoo.edu.ar", tarjetaBeneficioClassic);
+
+        s1.registrarBeneficioDescuento(carlos, "Harry Potter",200.0);
+        s1.registrarBeneficioDescuento(carlos, "Cruce Peligroso", 100.0);
+        s1.registrarBeneficioDescuento(carlos, "La lechuza", 100.0);
+        s2.registrarBeneficioDescuento(clienteClassic, "Ingenieria de Software", 500.0);
+        s2.registrarBeneficioDescuento(clienteClassic, "Martin Fierro", 100.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "El caballero de la armadura oxidada", 100.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "El psicoanalista", 200.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "Los Silicon Boys", 1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, ".NET", 1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "SQL Server", 1000.0);
+        s3.registrarBeneficioPromocion2x1(juan, "Juegos de Ingenio", 100.0, "El emperador", 200);
+        s3.registrarBeneficioPromocion2x1(clientePremium, "Martin Fierro", 100.0, "El cantar del Cid", 80.0);
+        s3.registrarBeneficioPromocion2x1(clientePremium, "Harry Potter",200.0, "Harry Potter 2", 250);
+
+        Sucursal sucursalConMasBeneficiosOtorgados = clubDeDescuento.obtenerSucursalConMasBeneficiosOtorgados();
+
+        Assert.assertEquals(libreriaElAteneo, clubDeDescuento.obtenerEstablecimientoConMasBeneficiosOtorgados());
+
+    }
+
+    @Test
     public void testObtenerSucursalConMasBeneficiosOtorgados() throws PorcentajeDescuentoInvalido {
         ClubDeDescuento clubDeDescuento = new ClubDeDescuento();
         TarjetaBeneficio tarjetaBeneficioPremium = new TarjetaBeneficioPremium();
@@ -227,6 +308,113 @@ public class TestIntegracion {
         Assert.assertEquals(s3, sucursalConMasBeneficiosOtorgados);
 
     }
+
+    @Test
+    public void testObtenerSucursalConMasBeneficiosOtorgados3() throws PorcentajeDescuentoInvalido, PreciosInvalidosParaPromocion2x1 {
+        ClubDeDescuento clubDeDescuento = new ClubDeDescuento();
+        TarjetaBeneficio tarjetaBeneficioPremium = new TarjetaBeneficioPremium();
+        TarjetaBeneficio tarjetaBeneficioClassic = new TarjetaBeneficioClassic();
+        Establecimiento libreriaElAltillo = new Establecimiento("El Altillo", "elaltillo@elaltillo.com.ar");
+        libreriaElAltillo.adherirBeneficioDescuento(20.0, tarjetaBeneficioClassic);
+        libreriaElAltillo.adherirBeneficioPromocion2x1(tarjetaBeneficioPremium);
+        Sucursal s1 = new Sucursal("s1", "Direccion s1", libreriaElAltillo);
+        Sucursal s2 = new Sucursal("s2", "Direccion s2", libreriaElAltillo);
+        Establecimiento libreriaElAteneo = new Establecimiento("El Ateneo", "elateneo@elateneo.com.ar");
+        libreriaElAteneo.adherirBeneficioDescuento(30, tarjetaBeneficioClassic);
+        libreriaElAteneo.adherirBeneficioPromocion2x1(tarjetaBeneficioPremium);
+        Sucursal s3 = new Sucursal("s3", "Direccion s3", libreriaElAteneo);
+        clubDeDescuento.adherirEstablecimiento(libreriaElAltillo);
+        clubDeDescuento.adherirEstablecimiento(libreriaElAteneo);
+        Cliente carlos = clubDeDescuento.adherirCliente("Carlos", "carlos@aydoo.edu.ar", tarjetaBeneficioClassic);
+        Cliente juan = clubDeDescuento.adherirCliente("Juan", "juan@aydoo.edu.ar", tarjetaBeneficioPremium);
+        Cliente clientePremium = clubDeDescuento.adherirCliente("Cliente Anonimo Premium", "premium@aydoo.edu.ar", tarjetaBeneficioPremium);
+        Cliente clienteClassic = clubDeDescuento.adherirCliente("Cliente Anonimo Classic", "classic@aydoo.edu.ar", tarjetaBeneficioClassic);
+
+        s1.registrarBeneficioDescuento(carlos, "Harry Potter",200.0);
+        s1.registrarBeneficioDescuento(carlos, "Cruce Peligroso", 100.0);
+        s1.registrarBeneficioDescuento(carlos, "La lechuza", 100.0);
+        s1.registrarBeneficioDescuento(clienteClassic, "Ingenieria de Software", 500.0);
+        s2.registrarBeneficioDescuento(clienteClassic, "Martin Fierro", 100.0);
+        s2.registrarBeneficioDescuento(clienteClassic, "El caballero de la armadura oxidada", 100.0);
+        s2.registrarBeneficioDescuento(clienteClassic, "El psicoanalista", 200.0);
+        s2.registrarBeneficioDescuento(clienteClassic, "Los Silicon Boys", 1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, ".NET", 1000.0);
+        s3.registrarBeneficioDescuento(clienteClassic, "SQL Server", 1000.0);
+        s3.registrarBeneficioPromocion2x1(juan, "Juegos de Ingenio", 100.0, "El emperador", 200);
+        s3.registrarBeneficioPromocion2x1(clientePremium, "Martin Fierro", 100.0, "El cantar del Cid", 80.0);
+        s3.registrarBeneficioPromocion2x1(clientePremium, "Harry Potter",200.0, "Harry Potter 2", 250);
+
+        Sucursal sucursalConMasBeneficiosOtorgados = clubDeDescuento.obtenerSucursalConMasBeneficiosOtorgados();
+
+        Assert.assertEquals(s3, sucursalConMasBeneficiosOtorgados);
+
+    }
+
+    @Test
+    public void testGeneracionDeReporte() throws PorcentajeDescuentoInvalido, PreciosInvalidosParaPromocion2x1 {
+        ClubDeDescuento clubDeDescuento = new ClubDeDescuento();
+        TarjetaBeneficio tarjetaBeneficioClassic = new TarjetaBeneficioClassic();
+        TarjetaBeneficio tarjetaBeneficioPremium = new TarjetaBeneficioPremium();
+        Establecimiento libreriaElAltillo = new Establecimiento("El Altillo", "elaltillo@elaltillo.com.ar");
+        libreriaElAltillo.adherirBeneficioDescuento(50.0, tarjetaBeneficioClassic);
+        libreriaElAltillo.adherirBeneficioPromocion2x1(tarjetaBeneficioClassic);
+        Sucursal s1 = new Sucursal("s1", "Direccion s1", libreriaElAltillo);
+        clubDeDescuento.adherirEstablecimiento(libreriaElAltillo);
+        Cliente mateo = clubDeDescuento.adherirCliente("Mateo", "mateo@aydoo.edu.ar", tarjetaBeneficioClassic);
+
+        s1.registrarBeneficioPromocion2x1(mateo, "Martin Fierro",100.0, "El cantar del Cid", 80.0);
+        s1.registrarBeneficioDescuento(mateo, "El psicoanalista", 80.0);
+
+        Map<Cliente, Mail> reporteMensual = new HashMap<>();
+        Mail primerMailAMateo = new Mail(libreriaElAltillo, "El cantar del Cid", 80.0, 80.0);
+        Mail segundoMailAMateo = new Mail(libreriaElAltillo, "El psicoanalista", 80.0, 40.0);
+        reporteMensual.put(mateo, primerMailAMateo);
+        reporteMensual.put(mateo, segundoMailAMateo);
+        Map<Cliente, Mail> mailsPorCliente = clubDeDescuento.obtenerReporteMensualPorCliente();
+
+        Assert.assertEquals(mailsPorCliente, reporteMensual);
+
+    }
+
+    @Test
+    public void testGeneracionDeReporte2() throws PorcentajeDescuentoInvalido, PreciosInvalidosParaPromocion2x1 {
+        ClubDeDescuento clubDeDescuento = new ClubDeDescuento();
+        TarjetaBeneficio tarjetaBeneficioPremium = new TarjetaBeneficioPremium();
+        TarjetaBeneficio tarjetaBeneficioClassic = new TarjetaBeneficioClassic();
+        Establecimiento libreriaElAltillo = new Establecimiento("El Altillo", "elaltillo@elaltillo.com.ar");
+        libreriaElAltillo.adherirBeneficioDescuento(50.0, tarjetaBeneficioClassic);
+        libreriaElAltillo.adherirBeneficioPromocion2x1(tarjetaBeneficioPremium);
+        Sucursal s1 = new Sucursal("s1", "Direccion s1", libreriaElAltillo);
+        Sucursal s2 = new Sucursal("s2", "Direccion s2", libreriaElAltillo);
+        Establecimiento libreriaElAteneo = new Establecimiento("El Ateneo", "elateneo@elateneo.com.ar");
+        libreriaElAteneo.adherirBeneficioDescuento(50, tarjetaBeneficioClassic);
+        libreriaElAteneo.adherirBeneficioPromocion2x1(tarjetaBeneficioPremium);
+        Sucursal s3 = new Sucursal("s3", "Direccion s3", libreriaElAteneo);
+        clubDeDescuento.adherirEstablecimiento(libreriaElAltillo);
+        clubDeDescuento.adherirEstablecimiento(libreriaElAteneo);
+        Cliente mateo = clubDeDescuento.adherirCliente("Mateo", "mateo@aydoo.edu.ar", tarjetaBeneficioClassic);
+        Cliente carlos = clubDeDescuento.adherirCliente("Carlos", "carlos@aydoo.edu.ar", tarjetaBeneficioClassic);
+
+        s1.registrarBeneficioPromocion2x1(mateo, "Martin Fierro",100.0, "El cantar del Cid", 80.0);
+        s1.registrarBeneficioDescuento(mateo, "El psicoanalista", 80.0);
+        s3.registrarBeneficioPromocion2x1(carlos, "El emperador", 80.0, "Martin Fierro", 100.0);
+        s3.registrarBeneficioDescuento(carlos, "El cantar del Cid", 80.0);
+
+        Map<Cliente, Mail> reporteMensual = new HashMap<>();
+        Mail primerMailAMateo = new Mail(libreriaElAltillo, "El cantar del Cid", 80.0, 80.0);
+        Mail segundoMailAMateo = new Mail(libreriaElAltillo, "El psicoanalista", 80.0, 40.0);
+        Mail primerMailACarlos = new Mail(libreriaElAteneo, "El emperador", 80.0, 80.0);
+        Mail segundoMailACarlos = new Mail(libreriaElAteneo, "El cantar del Cid", 80.0, 40.0);
+        reporteMensual.put(mateo, primerMailAMateo);
+        reporteMensual.put(mateo, segundoMailAMateo);
+        reporteMensual.put(carlos, primerMailACarlos);
+        reporteMensual.put(carlos, segundoMailACarlos);
+        Map<Cliente, Mail> mailsPorCliente = clubDeDescuento.obtenerReporteMensualPorCliente();
+
+        Assert.assertEquals(mailsPorCliente, reporteMensual);
+
+    }
+
 
 
 }
