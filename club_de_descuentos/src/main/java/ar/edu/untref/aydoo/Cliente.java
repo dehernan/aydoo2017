@@ -43,7 +43,7 @@ public class Cliente {
     public Double obtenerMontoAhorrado(){
         double montoAhorrado = 0;
         for(Beneficio beneficio: this.obtenerBeneficiosObtenidos()){
-            montoAhorrado += beneficio.obtenerValor();
+            montoAhorrado += beneficio.obtenerValorSinBeneficio()-beneficio.obtenerValorConBeneficio();
         }
         return montoAhorrado;
     }
