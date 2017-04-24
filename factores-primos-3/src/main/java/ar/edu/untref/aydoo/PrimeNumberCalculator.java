@@ -35,6 +35,7 @@ public class PrimeNumberCalculator{
         evaluateParameters(arg);
         orderFactors(order);
         formatOutput(format);
+        System.out.println(output);
         if(writeOutputFile) {
             printFile(path);
         }
@@ -106,7 +107,6 @@ public class PrimeNumberCalculator{
             String printed = output;
             try {
                 PrintWriter writer = new PrintWriter(path, "UTF-8");
-                System.out.println(printed);
                 writer.println(printed);
                 writer.close();
             } catch (IOException e) {
