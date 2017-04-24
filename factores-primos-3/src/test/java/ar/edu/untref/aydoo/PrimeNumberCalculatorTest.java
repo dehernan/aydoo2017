@@ -17,11 +17,22 @@ public class PrimeNumberCalculatorTest{
     }
 
     @Test
+    public void number1WithoutFormatTest() {
+
+        String[] args = new String[1];
+        args[0] = "1";
+
+        calculator.main(args);
+
+        Assert.assertEquals("Factores primos 1: 1 ", calculator.output);
+    }
+
+    @Test
     public void number360WithoutFormatTest() {
 
-        String[] args = new String[2];
+        String[] args = new String[1];
         args[0] = "360";
-        args[1] = "";
+
 
         calculator.main(args);
 
@@ -54,6 +65,19 @@ public class PrimeNumberCalculatorTest{
     }
 
     @Test
+    public void number360WithQuietFormatAndWrongOrderTest() {
+
+        String[] args = new String[3];
+        args[0] = "360";
+        args[1] = "--format=quIet";
+        args[2] = "--sort=ascendente";
+
+        calculator.main(args);
+
+        Assert.assertEquals("Orden no aceptado. Las opciones posibles son: asc o desc.", calculator.output);
+    }
+
+    @Test
     public void number360WithQuietFormatAndAscOrderAndOutputFileTest() {
 
         PrimeNumberCalculator otra = new PrimeNumberCalculator();
@@ -71,16 +95,15 @@ public class PrimeNumberCalculatorTest{
     @Test
     public void number360WithQuietFormatAndDescOrderAndOutputFileTest() {
 
-        PrimeNumberCalculator otra = new PrimeNumberCalculator();
         String[] args = new String[4];
         args[0] = "360";
         args[1] = "--format=quIet";
         args[2] = "--sort=desc";
         args[3] = "--output-file=number360WithQuietFormatAndDescOrderAndOutputFileTest.txt";
 
-        otra.main(args);
+        calculator.main(args);
 
-        Assert.assertEquals("Factores primos 360: \n5\n3\n3\n2\n2\n2\n", otra.output);
+        Assert.assertEquals("Factores primos 360: \n5\n3\n3\n2\n2\n2\n", calculator.output);
     }
 
     @Test
@@ -120,6 +143,32 @@ public class PrimeNumberCalculatorTest{
         calculator.main(args);
 
         Assert.assertEquals("Factores primos 360: 5 3 3 2 2 2 ", calculator.output);
+    }
+
+    @Test
+    public void number360WithPrettyFormatAndEmptyOrderParameterShouldReturnAscOrder() {
+
+        String[] args = new String[4];
+        args[0] = "360";
+        args[1] = "--format=pretty";
+        args[2] = "--sort=";
+        args[3] = "--output-file=number360WithPrettyFormatAndDescOrderAndOutputFileTest.txt";
+
+        calculator.main(args);
+
+        Assert.assertEquals("Factores primos 360: 2 2 2 3 3 5 ", calculator.output);
+    }
+
+    @Test
+    public void number360WithEmptyFormatParameterShouldReturnPrettyFormat() {
+
+        String[] args = new String[2];
+        args[0] = "360";
+        args[1] = "--format=";
+
+        calculator.main(args);
+
+        Assert.assertEquals("Factores primos 360: 2 2 2 3 3 5 ", calculator.output);
     }
 
     @Test

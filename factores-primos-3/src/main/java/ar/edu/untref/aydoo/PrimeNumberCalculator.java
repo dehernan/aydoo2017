@@ -14,7 +14,11 @@ public class PrimeNumberCalculator{
     public static String format;
     public static String order;
     public static String path;
+    public static boolean sort;
+    public static boolean applyFormat;
     public static boolean writeOutputFile;
+    public static boolean returnError;
+
 
     public static final void main(String arg[]){
         factors = new ArrayList<>();
@@ -23,7 +27,10 @@ public class PrimeNumberCalculator{
         format = "pretty";
         order = "asc";
         path = "";
+        sort = false;
         writeOutputFile = false;
+        applyFormat = false;
+        returnError = false;
 
         int number = Integer.parseInt(arg[0]);
         for(int i = 0; i < arg.length; i++){
@@ -34,7 +41,9 @@ public class PrimeNumberCalculator{
         calculateFactors(number);
         evaluateParameters(arg);
         orderFactors(order);
-        formatOutput(format);
+        if(!returnError) {
+            formatOutput(format);
+        }
         System.out.println(output);
         if(writeOutputFile) {
             printFile(path);
@@ -46,9 +55,12 @@ public class PrimeNumberCalculator{
         for(String i: arg) {
             if (i.startsWith("--format=")) {
                 format = i.substring(9, i.length());
+                applyFormat = true;
+
             }
             if (i.startsWith("--sort=")) {
                 order = i.substring(7, i.length());
+                sort = true;
             }
             if (i.startsWith("--output-file=")) {
                 path = i.substring(14, i.length());
@@ -85,6 +97,7 @@ public class PrimeNumberCalculator{
                 break;
             default:
                 output = "Formato no aceptado. Las opciones posibles son: pretty o quiet.";
+                returnError = true;
         }
     }
 
@@ -99,6 +112,7 @@ public class PrimeNumberCalculator{
                 break;
             default:
                 output = "Orden no aceptado. Las opciones posibles son: asc o desc.";
+                returnError = true;
         }
     }
 
@@ -115,6 +129,7 @@ public class PrimeNumberCalculator{
         }
         else{
             output = "El archivo debe ser especificado con formato .txt";
+            returnError = true;
         }
     }
 
