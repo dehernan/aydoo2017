@@ -30,4 +30,7 @@ factores-primos-3/target
 # IDE Files #
 #############
 .idea/
-*.iml
+
+# TXT Files #
+#############
+*.txt
