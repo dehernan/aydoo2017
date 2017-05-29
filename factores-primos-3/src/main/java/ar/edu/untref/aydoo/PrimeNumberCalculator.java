@@ -1,87 +1,84 @@
 package ar.edu.untref.aydoo;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
+import ar.edu.untref.aydoo.exceptions.InvalidFileException;
+import ar.edu.untref.aydoo.exceptions.InvalidFormatException;
+import ar.edu.untref.aydoo.exceptions.InvalidOrderException;
+
 import java.util.Collections;
 import java.util.List;
 
 public class PrimeNumberCalculator{
 
+    public static FactorsCalculator factorsCalculator = new FactorsCalculator();
+    public static PrimeNumberPrinter primeNumberPrinter = new PrimeNumberPrinter();
     public static List<Integer> factors;
-    public static List<String> flagParameters;
     public static String output;
     public static String format;
     public static String order;
     public static String path;
-    public static boolean sort;
-    public static boolean applyFormat;
     public static boolean writeOutputFile;
-    public static boolean returnError;
-
 
     public static final void main(String arg[]){
-        factors = new ArrayList<>();
-        flagParameters = new ArrayList<>();
-        output = "";
         format = "pretty";
         order = "asc";
         path = "";
-        sort = false;
-        writeOutputFile = false;
-        applyFormat = false;
-        returnError = false;
 
         int number = Integer.parseInt(arg[0]);
-        for(int i = 0; i < arg.length; i++){
-            arg[i]=arg[i].toLowerCase();
-        }
 
-        output ="Factores primos "+number+": ";
-        calculateFactors(number);
+        output = "Factores primos "+number+": ";
+        parametersToLowerCase(arg);
+        obtainFactors(number);
         evaluateParameters(arg);
-        orderFactors(order);
-        if(!returnError) {
-            formatOutput(format);
-        }
-        System.out.println(output);
-        if(writeOutputFile) {
-            printFile(path);
-        }
+        applyParameters();
+        printOutputs();
+    }
 
+    private static void applyParameters() {
+        try {
+            orderFactors(order);
+            formatOutput(format);
+        } catch (Exception e) {
+            output=e.getMessage();
+        }
+    }
+
+    private static void printOutputs() {
+        if(writeOutputFile){
+            try {
+                printFile(path, output);
+            } catch (InvalidFileException e) {
+                output = e.getMessage();
+            }
+        }
+        else{
+            System.out.println(output);
+        }
+    }
+
+    private static void obtainFactors(Integer number){
+        factors = factorsCalculator.calculateFactors(number);
     }
 
     private static void evaluateParameters(String[] arg) {
         for(String i: arg) {
             if (i.startsWith("--format=")) {
                 format = i.substring(9, i.length());
-                applyFormat = true;
-
             }
             if (i.startsWith("--sort=")) {
                 order = i.substring(7, i.length());
-                sort = true;
+                output = "";
             }
             if (i.startsWith("--output-file=")) {
                 path = i.substring(14, i.length());
                 writeOutputFile = true;
             }
-        }
-    }
-
-    public static void calculateFactors(int number){
-        if(number == 1){
-            factors.add(number);
-        }
-        for(int i = 2; i<=number; i++){
-            while(number%i==0) {
-                number = number/i;
-                factors.add(i);
+            else{
+                writeOutputFile = false;
             }
         }
     }
 
-    public static void formatOutput(String format){
+    public static void formatOutput(String format) throws InvalidFormatException {
         switch(format){
             case "":
             case "pretty":
@@ -90,18 +87,16 @@ public class PrimeNumberCalculator{
                 }
                 break;
             case "quiet":
-                output = output.concat("\n");
                 for(int i = 0; i<factors.size(); i++){
                     output = output.concat(factors.get(i)+"\n");
                 }
                 break;
             default:
-                output = "Formato no aceptado. Las opciones posibles son: pretty o quiet.";
-                returnError = true;
+                throw new InvalidFormatException();
         }
     }
 
-    public static void orderFactors(String order){
+    public static void orderFactors(String order) throws InvalidOrderException {
         switch(order){
             case "":
             case "asc":
@@ -111,26 +106,17 @@ public class PrimeNumberCalculator{
                 Collections.sort(factors, Collections.reverseOrder());
                 break;
             default:
-                output = "Orden no aceptado. Las opciones posibles son: asc o desc.";
-                returnError = true;
+                throw new InvalidOrderException();
         }
     }
 
-    public static void printFile(String path){
-        if(path.endsWith(".txt")) {
-            String printed = output;
-            try {
-                PrintWriter writer = new PrintWriter(path, "UTF-8");
-                writer.println(printed);
-                writer.close();
-            } catch (IOException e) {
-                e.getMessage();
-            }
-        }
-        else{
-            output = "El archivo debe ser especificado con formato .txt";
-            returnError = true;
-        }
+    public static void printFile(String path, String output) throws InvalidFileException {
+        primeNumberPrinter.printFile(path, output);
     }
 
+    public static void parametersToLowerCase(String[] args){
+        for(int i = 0; i < args.length; i++){
+            args[i]=args[i].toLowerCase();
+        }
+    }
 }

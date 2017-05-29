@@ -48,7 +48,7 @@ public class PrimeNumberCalculatorTest{
 
         calculator.main(args);
 
-        Assert.assertEquals("Factores primos 360: \n2\n2\n2\n3\n3\n5\n", calculator.output);
+        Assert.assertEquals("Factores primos 360: 2\n2\n2\n3\n3\n5\n", calculator.output);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class PrimeNumberCalculatorTest{
 
         calculator.main(args);
 
-        Assert.assertEquals("Factores primos 360: \n2\n2\n2\n3\n3\n5\n", calculator.output);
+        Assert.assertEquals("2\n2\n2\n3\n3\n5\n", calculator.output);
     }
 
     @Test
@@ -89,7 +89,7 @@ public class PrimeNumberCalculatorTest{
 
         otra.main(args);
 
-        Assert.assertEquals("Factores primos 360: \n2\n2\n2\n3\n3\n5\n", otra.output);
+        Assert.assertEquals("2\n2\n2\n3\n3\n5\n", otra.output);
     }
 
     @Test
@@ -103,7 +103,7 @@ public class PrimeNumberCalculatorTest{
 
         calculator.main(args);
 
-        Assert.assertEquals("Factores primos 360: \n5\n3\n3\n2\n2\n2\n", calculator.output);
+        Assert.assertEquals("5\n3\n3\n2\n2\n2\n", calculator.output);
     }
 
     @Test
@@ -128,7 +128,7 @@ public class PrimeNumberCalculatorTest{
 
         calculator.main(args);
 
-        Assert.assertEquals("Factores primos 360: 5 3 3 2 2 2 ", calculator.output);
+        Assert.assertEquals("5 3 3 2 2 2 ", calculator.output);
     }
 
     @Test
@@ -142,7 +142,7 @@ public class PrimeNumberCalculatorTest{
 
         calculator.main(args);
 
-        Assert.assertEquals("Factores primos 360: 5 3 3 2 2 2 ", calculator.output);
+        Assert.assertEquals("5 3 3 2 2 2 ", calculator.output);
     }
 
     @Test
@@ -156,7 +156,7 @@ public class PrimeNumberCalculatorTest{
 
         calculator.main(args);
 
-        Assert.assertEquals("Factores primos 360: 2 2 2 3 3 5 ", calculator.output);
+        Assert.assertEquals("2 2 2 3 3 5 ", calculator.output);
     }
 
     @Test
