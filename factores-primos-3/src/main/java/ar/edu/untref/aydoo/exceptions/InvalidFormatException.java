@@ -1,7 +1,6 @@
 package ar.edu.untref.aydoo.exceptions;
 
 public class InvalidFormatException extends Exception{
-
     public InvalidFormatException() {
         super();
     }
