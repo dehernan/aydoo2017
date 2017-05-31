@@ -31,7 +31,7 @@ public class Sucursal {
         return this.beneficiosOtorgados;
     }
 
-    public void registrarBeneficioDescuento(Cliente cliente, String nombreProducto, double valorCompra) {
+    public void registrarVentaConDescuento(Cliente cliente, String nombreProducto, double valorCompra) {
         Double descuento = this.obtenerDescuentoSegunTarjeta(cliente.obtenerTarjetaBeneficio());
         Double valorBeneficio = this.computarValorBeneficioDescuento(descuento, valorCompra);
         Beneficio beneficioOtorgado = new Beneficio(cliente, this.establecimiento, this, nombreProducto, valorCompra, valorCompra-valorBeneficio);
@@ -40,47 +40,27 @@ public class Sucursal {
     }
 
 
-    public void registrarBeneficioPromocion2x1(Cliente cliente, String nombreProducto1, double valorCompra1, String nombreProducto2, double valorCompra2) throws PreciosInvalidosParaPromocion2x1 {
-        if (!esAplicablePromocion2x1(valorCompra1, valorCompra2)) {
-            throw new PreciosInvalidosParaPromocion2x1();
+    public void registrarVentaConPromocion2x1(Cliente cliente, String nombreProducto1, double valorCompra1, String nombreProducto2, double valorCompra2) throws PreciosInvalidosParaPromocion2x1 {
+        String nombreProductoMayorValor = ComparadorDePrecios.obtenerProductoMayorValor(nombreProducto1, valorCompra1, nombreProducto2, valorCompra2);
+        Double precioProductoMayorValor = ComparadorDePrecios.obtenerPrecioProductoMayorValor(valorCompra1, valorCompra2);
+        String nombreProductoMenorValor = ComparadorDePrecios.obtenerProductoMenorValor(nombreProducto1, valorCompra1, nombreProducto2, valorCompra2);
+        Double precioProductoMenorValor = ComparadorDePrecios.obtenerPrecioProductoMenorValor(valorCompra1, valorCompra2);
+        PoliticaPromocion.comprobarValorMinimo2x1(precioProductoMayorValor);
 
-        } else {
-            Double valorBeneficio;
-            String nombreProductoConBeneficio;
-            if (valorCompra1 > valorCompra2) {
-                valorBeneficio = valorCompra2;
-                nombreProductoConBeneficio = nombreProducto2;
-            } else {
-                valorBeneficio = valorCompra1;
-                nombreProductoConBeneficio = nombreProducto1;
-            }
-
-            Beneficio beneficioOtorgado = new Beneficio(cliente, this.establecimiento, this, nombreProductoConBeneficio, valorBeneficio, 0.0);
-            this.obtenerBeneficiosOtorgados().add(beneficioOtorgado);
-            cliente.registrarBeneficio(beneficioOtorgado);
-        }
+        Beneficio beneficioOtorgado = new Beneficio(cliente, this.establecimiento, this, nombreProductoMenorValor, precioProductoMenorValor, 0.0);
+        this.obtenerBeneficiosOtorgados().add(beneficioOtorgado);
+        cliente.registrarBeneficio(beneficioOtorgado);
     }
 
-    private Double computarValorBeneficioDescuento(Double descuento, double valorCompra) {
+    public Double computarValorBeneficioDescuento(Double descuento, double valorCompra) {
         return valorCompra * ( descuento / 100);
     }
 
-    protected boolean esAplicablePromocion2x1(Double valorCompra1, double valorCompra2){
-
-        if(valorCompra1<100 && valorCompra2<100){
-            return false;
-        }
-        else{
-            return true;
-        }
-
-    }
-
-    protected Double obtenerDescuentoSegunTarjeta(TarjetaBeneficio tarjetaBeneficio) {
+    public Double obtenerDescuentoSegunTarjeta(TarjetaBeneficio tarjetaBeneficio) {
         return this.obtenerEstablecimiento().obtenerBeneficiosDescuento().get(tarjetaBeneficio);
     }
 
-    public Integer obtenerCantidadDeBeneficiosOtorgados() {
+    public int obtenerCantidadDeBeneficiosOtorgados() {
         return this.obtenerBeneficiosOtorgados().size();
     }
 

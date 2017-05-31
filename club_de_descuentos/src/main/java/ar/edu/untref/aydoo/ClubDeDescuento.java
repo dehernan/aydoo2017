@@ -8,6 +8,8 @@ public class ClubDeDescuento {
 
     protected Set<Cliente> clientes;
 
+    protected PoliticaPromocion politicaDescuento;
+
     public ClubDeDescuento() {
         this.establecimientos = new HashSet<>();
         this.clientes = new HashSet<>();

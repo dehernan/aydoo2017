@@ -1,4 +1,5 @@
 package ar.edu.untref.aydoo;
 
-public abstract class TarjetaBeneficio {
+public enum TarjetaBeneficio {
+    CLASSIC, PREMIUM;
 }

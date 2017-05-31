@@ -10,13 +10,9 @@ import java.util.Set;
 public class Establecimiento {
 
     protected String nombre;
-
     protected String mail;
-
     protected Map<TarjetaBeneficio, Double> beneficiosDescuento;
-
     protected Map<TarjetaBeneficio, Boolean> beneficioPromocion2x1;
-
     protected Set<Sucursal> sucursales;
 
     public Establecimiento(String nombre, String mail) {
@@ -44,19 +40,12 @@ public class Establecimiento {
     }
 
     public void adherirBeneficioDescuento(double descuento, TarjetaBeneficio tarjetaBeneficio) throws PorcentajeDescuentoInvalido{
-        //El descuento no puede ser menor al 5%
-        if(descuento<5 || descuento>100){
-            throw new PorcentajeDescuentoInvalido();
-        }
-        else {
-            this.obtenerBeneficiosDescuento().put(tarjetaBeneficio, descuento);
-        }
+        PoliticaPromocion.comprobarPorcentajeDescuento(descuento);
+        this.obtenerBeneficiosDescuento().put(tarjetaBeneficio, descuento);
     }
 
     public void adherirBeneficioPromocion2x1(TarjetaBeneficio tarjetaBeneficio){
-
         this.obtenerBeneficiosPromocion2x1().put(tarjetaBeneficio, true);
-
     }
 
     public Integer obtenerCantidadDeBeneficiosOtorgados() {
